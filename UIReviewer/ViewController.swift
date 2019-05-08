@@ -19,15 +19,22 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     @IBOutlet weak var opacitySlider: NSSlider!
     @IBOutlet weak var imageViewDescLabel: NSTextField!
     @IBOutlet weak var picInfoDescLabel: NSTextField!
+    @IBOutlet weak var divide2Btn: NSButton!
+    @IBOutlet weak var divide3Btn: NSButton!
+    @IBOutlet weak var divide1Btn: NSButton!
     
     @IBOutlet weak var imageViewWidth: NSLayoutConstraint!
     @IBOutlet weak var imageViewHeight: NSLayoutConstraint!
+    var currentImageScale: Int!
+
+    var selectedImage: NSImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         selectPhoneBox.delegate = self
+        currentImageScale = 1
     }
 
     override var representedObject: Any? {
@@ -44,7 +51,8 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         if (openPanel.runModal() == .OK) {
             let result = openPanel.url
             if (result != nil) {
-                imageView.image = NSImage.init(contentsOf: result!)
+                selectedImage = NSImage.init(contentsOf: result!)
+                imageView.image = selectedImage
                 descImageInfo()
             }
         }
@@ -56,12 +64,55 @@ class ViewController: NSViewController, NSComboBoxDelegate {
             return;
         }
         imageView.image = image
+        selectedImage = image
         descImageInfo()
     }
 
     @IBAction func opacitySliderAction(_ sender: NSSlider) {
         let opacity = sender.floatValue
         self.view.window?.alphaValue = CGFloat.init(opacity)
+    }
+    
+    @IBAction func divide2(_ sender: NSButton) {
+        if (sender.state == .on) {
+            divide3Btn.state = .off
+            divide1Btn.state = .off
+            resizeAndDisplay(scale: 2)
+        }
+    }
+    @IBAction func divide3(_ sender: NSButton) {
+        if (sender.state == .on) {
+            divide2Btn.state = .off
+            divide1Btn.state = .off
+            resizeAndDisplay(scale: 3)
+        }
+    }
+    @IBAction func divide1(_ sender: NSButton) {
+        if (sender.state == .on) {
+            divide2Btn.state = .off
+            divide3Btn.state = .off
+            resizeAndDisplay(scale: 1)
+        }
+    }
+    
+    func resizeAndDisplay(scale: Int) {
+        if currentImageScale == scale || selectedImage == nil {
+            return
+        }
+        let resizedImage = resize(image: selectedImage!, w: Int((selectedImage?.size.width)!/CGFloat(scale)), h: Int((selectedImage?.size.height)!/CGFloat(scale)))
+        imageView.image = resizedImage
+        currentImageScale = scale
+        descImageInfo()
+    }
+    
+    func resize(image: NSImage, w: Int, h: Int) -> NSImage {
+        let destSize = NSMakeSize(CGFloat(w), CGFloat(h))
+        let newImage = NSImage(size: destSize)
+        newImage.lockFocus()
+        image.draw(in: NSMakeRect(0, 0, destSize.width, destSize.height), from: NSMakeRect(0, 0, image.size.width, image.size.height), operation: .sourceOver, fraction: CGFloat(1))
+        newImage.unlockFocus()
+        newImage.size = destSize
+        return NSImage(data: newImage.tiffRepresentation!)!
     }
     
     func descImageInfo() {
