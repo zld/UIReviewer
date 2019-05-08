@@ -12,7 +12,7 @@ import AppKit
 
 class ViewController: NSViewController, NSComboBoxDelegate {
 
-    @IBOutlet weak var imageView: IKImageView!
+    @IBOutlet weak var imageView: NSImageView!
     @IBOutlet weak var openFileButton: NSButton!
     @IBOutlet weak var useClipboardButton: NSButton!
     @IBOutlet weak var selectPhoneBox: NSComboBox!
@@ -44,7 +44,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         if (openPanel.runModal() == .OK) {
             let result = openPanel.url
             if (result != nil) {
-                imageView.setImageWith(result)
+                imageView.image = NSImage.init(contentsOf: result!)
                 descImageInfo()
             }
         }
@@ -55,10 +55,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         guard let image = NSImage.init(pasteboard: pasteboard) else {
             return;
         }
-        guard let cImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
-            return;
-        }
-        imageView.setImage(cImage, imageProperties: nil)
+        imageView.image = image
         descImageInfo()
     }
 
@@ -71,12 +68,13 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         let formatter = NumberFormatter()
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 1
-        let w  = formatter.string(from: NSNumber.init(value: Float(imageView.imageSize().width))) ?? "0"
-        let h  = formatter.string(from: NSNumber.init(value: Float(imageView.imageSize().height))) ?? "0"
-        let w2 = formatter.string(from: NSNumber.init(value: Float(imageView.imageSize().width/2))) ?? "0"
-        let h2 = formatter.string(from: NSNumber.init(value: Float(imageView.imageSize().height/2))) ?? "0"
-        let w3 = formatter.string(from: NSNumber.init(value: Float(imageView.imageSize().width/3))) ?? "0"
-        let h3 = formatter.string(from: NSNumber.init(value: Float(imageView.imageSize().height/3))) ?? "0"
+        let size = imageView.image?.size ?? NSZeroSize
+        let w  = formatter.string(from: NSNumber.init(value: Float(size.width))) ?? "0"
+        let h  = formatter.string(from: NSNumber.init(value: Float(size.height))) ?? "0"
+        let w2 = formatter.string(from: NSNumber.init(value: Float(size.width/2))) ?? "0"
+        let h2 = formatter.string(from: NSNumber.init(value: Float(size.height/2))) ?? "0"
+        let w3 = formatter.string(from: NSNumber.init(value: Float(size.width/3))) ?? "0"
+        let h3 = formatter.string(from: NSNumber.init(value: Float(size.height/3))) ?? "0"
         picInfoDescLabel.stringValue = String.init(format: "px:  %@, %@\n÷2: %@, %@\n÷3: %@, %@", w, h, w2, h2, w3, h3)
     }
     

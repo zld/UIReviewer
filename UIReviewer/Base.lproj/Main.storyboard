@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
-        <plugIn identifier="com.apple.imagekit.ibplugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -684,8 +684,8 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
@@ -695,7 +695,7 @@
                         </connections>
                     </window>
                     <connections>
-                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
+                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="QXG-qa-ktW"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -710,14 +710,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="543" height="667"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <ikImageView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="47y-aR-GrT">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="667" id="iuF-DX-K2Z"/>
-                                    <constraint firstAttribute="width" constant="375" id="yd1-g0-TB9"/>
-                                </constraints>
-                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                            </ikImageView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Q0Z-yv-Qcl">
                                 <rect key="frame" x="393" y="619" width="126" height="32"/>
                                 <constraints>
@@ -746,17 +738,6 @@
                                     <action selector="useClipboardImageAction:" target="XfG-lQ-9wD" id="LBi-er-bCE"/>
                                 </connections>
                             </button>
-                            <slider horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T6w-VO-51b">
-                                <rect key="frame" x="447" y="34" width="19" height="301"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="15" id="XuO-j2-tPN"/>
-                                    <constraint firstAttribute="height" constant="296" id="teY-Tz-oak"/>
-                                </constraints>
-                                <sliderCell key="cell" continuous="YES" alignment="left" minValue="0.050000000000000003" maxValue="1" doubleValue="1" tickMarkPosition="right" sliderType="linear" id="5gg-sN-qEW"/>
-                                <connections>
-                                    <action selector="opacitySliderAction:" target="XfG-lQ-9wD" id="wev-3o-VNk"/>
-                                </connections>
-                            </slider>
                             <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LRB-S1-He1">
                                 <rect key="frame" x="399" y="556" width="117" height="26"/>
                                 <constraints>
@@ -824,35 +805,56 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <slider horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T6w-VO-51b">
+                                <rect key="frame" x="447" y="34" width="19" height="301"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="15" id="XuO-j2-tPN"/>
+                                    <constraint firstAttribute="height" constant="296" id="teY-Tz-oak"/>
+                                </constraints>
+                                <sliderCell key="cell" continuous="YES" alignment="left" minValue="0.050000000000000003" maxValue="1" doubleValue="1" tickMarkPosition="right" sliderType="linear" id="5gg-sN-qEW"/>
+                                <connections>
+                                    <action selector="opacitySliderAction:" target="XfG-lQ-9wD" id="wev-3o-VNk"/>
+                                </connections>
+                            </slider>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wfc-hg-5Dv">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="667" id="7Ux-6O-uZg"/>
+                                    <constraint firstAttribute="width" constant="375" id="hdQ-Ae-B6K"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="proportionallyDown" id="7Me-Py-rqA"/>
+                                <color key="contentTintColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </imageView>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="Wfc-hg-5Dv" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="1zZ-pY-69e"/>
+                            <constraint firstItem="uJe-bm-gFb" firstAttribute="leading" secondItem="Wfc-hg-5Dv" secondAttribute="trailing" constant="26" id="3Kq-h3-NUO"/>
                             <constraint firstItem="w9a-e0-MWh" firstAttribute="top" secondItem="Q0Z-yv-Qcl" secondAttribute="bottom" constant="12" id="7O0-5j-9Id"/>
-                            <constraint firstItem="uJe-bm-gFb" firstAttribute="leading" secondItem="47y-aR-GrT" secondAttribute="trailing" constant="26" id="BaC-jD-lXh"/>
-                            <constraint firstItem="LRB-S1-He1" firstAttribute="leading" secondItem="47y-aR-GrT" secondAttribute="trailing" constant="24" id="Hh4-xi-qWE"/>
-                            <constraint firstItem="Q0Z-yv-Qcl" firstAttribute="leading" secondItem="47y-aR-GrT" secondAttribute="trailing" constant="24" id="ICW-CY-rHC"/>
+                            <constraint firstItem="PXE-3v-Wj7" firstAttribute="leading" secondItem="Wfc-hg-5Dv" secondAttribute="trailing" constant="26" id="Hdh-uj-oUI"/>
                             <constraint firstItem="hZO-j9-ZNF" firstAttribute="top" secondItem="uJe-bm-gFb" secondAttribute="bottom" constant="18" id="IJl-PO-DA5"/>
+                            <constraint firstItem="Q0Z-yv-Qcl" firstAttribute="leading" secondItem="Wfc-hg-5Dv" secondAttribute="trailing" constant="24" id="Jsq-r7-Dig"/>
+                            <constraint firstItem="Wfc-hg-5Dv" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="K1i-Ew-PNV"/>
+                            <constraint firstItem="hZO-j9-ZNF" firstAttribute="leading" secondItem="Wfc-hg-5Dv" secondAttribute="trailing" constant="26" id="S0r-MV-HiR"/>
                             <constraint firstItem="uJe-bm-gFb" firstAttribute="top" secondItem="hTh-YR-Og8" secondAttribute="bottom" constant="8" id="U84-v9-5rn"/>
-                            <constraint firstItem="hTh-YR-Og8" firstAttribute="leading" secondItem="47y-aR-GrT" secondAttribute="trailing" constant="26" id="Wjr-94-ar0"/>
+                            <constraint firstAttribute="bottom" secondItem="Wfc-hg-5Dv" secondAttribute="bottom" id="Uz8-4r-7q7"/>
+                            <constraint firstAttribute="bottom" secondItem="Wfc-hg-5Dv" secondAttribute="bottom" id="Wgv-77-M2Z"/>
+                            <constraint firstItem="T6w-VO-51b" firstAttribute="leading" secondItem="Wfc-hg-5Dv" secondAttribute="trailing" constant="74" id="XUd-08-bKw"/>
                             <constraint firstItem="T6w-VO-51b" firstAttribute="top" secondItem="PXE-3v-Wj7" secondAttribute="bottom" constant="29" id="ZzK-H6-FgP"/>
-                            <constraint firstItem="47y-aR-GrT" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="aSt-31-Hlw"/>
                             <constraint firstItem="PXE-3v-Wj7" firstAttribute="top" secondItem="hZO-j9-ZNF" secondAttribute="bottom" constant="8" id="b7F-hj-ITs"/>
-                            <constraint firstItem="w9a-e0-MWh" firstAttribute="leading" secondItem="47y-aR-GrT" secondAttribute="trailing" constant="24" id="bgg-Os-VY2"/>
-                            <constraint firstItem="hZO-j9-ZNF" firstAttribute="leading" secondItem="47y-aR-GrT" secondAttribute="trailing" constant="26" id="c3g-ms-7BD"/>
-                            <constraint firstAttribute="bottom" secondItem="47y-aR-GrT" secondAttribute="bottom" id="m4V-ho-YVb"/>
-                            <constraint firstItem="PXE-3v-Wj7" firstAttribute="leading" secondItem="47y-aR-GrT" secondAttribute="trailing" constant="26" id="qB4-PK-Ad3"/>
+                            <constraint firstItem="LRB-S1-He1" firstAttribute="leading" secondItem="Wfc-hg-5Dv" secondAttribute="trailing" constant="24" id="dt7-S2-oMl"/>
+                            <constraint firstAttribute="trailing" secondItem="Wfc-hg-5Dv" secondAttribute="trailing" constant="168" id="fNn-Wj-lBM"/>
+                            <constraint firstItem="w9a-e0-MWh" firstAttribute="leading" secondItem="Wfc-hg-5Dv" secondAttribute="trailing" constant="24" id="h31-Gv-QwI"/>
+                            <constraint firstItem="hTh-YR-Og8" firstAttribute="leading" secondItem="Wfc-hg-5Dv" secondAttribute="trailing" constant="26" id="j7B-Dl-RBn"/>
                             <constraint firstItem="LRB-S1-He1" firstAttribute="top" secondItem="w9a-e0-MWh" secondAttribute="bottom" constant="13" id="tFd-Gc-HyZ"/>
-                            <constraint firstItem="47y-aR-GrT" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="uEw-ZZ-xF8"/>
-                            <constraint firstItem="T6w-VO-51b" firstAttribute="leading" secondItem="47y-aR-GrT" secondAttribute="trailing" constant="74" id="uTZ-yC-y9X"/>
                             <constraint firstItem="hTh-YR-Og8" firstAttribute="top" secondItem="LRB-S1-He1" secondAttribute="bottom" constant="16" id="vHn-v6-LDx"/>
                             <constraint firstItem="Q0Z-yv-Qcl" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="w57-mY-1qB"/>
-                            <constraint firstAttribute="trailing" secondItem="47y-aR-GrT" secondAttribute="trailing" constant="168" id="ybf-zc-wSU"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="imageView" destination="47y-aR-GrT" id="zHn-Ln-tsZ"/>
+                        <outlet property="imageView" destination="Wfc-hg-5Dv" id="ph8-5w-lBX"/>
                         <outlet property="imageViewDescLabel" destination="uJe-bm-gFb" id="0nn-or-xqp"/>
-                        <outlet property="imageViewHeight" destination="iuF-DX-K2Z" id="xg8-do-UPi"/>
-                        <outlet property="imageViewWidth" destination="yd1-g0-TB9" id="w3n-JI-JCJ"/>
+                        <outlet property="imageViewHeight" destination="7Ux-6O-uZg" id="df2-h9-hnL"/>
+                        <outlet property="imageViewWidth" destination="hdQ-Ae-B6K" id="S9X-Z2-q0R"/>
                         <outlet property="opacitySlider" destination="T6w-VO-51b" id="qer-Ef-INl"/>
                         <outlet property="openFileButton" destination="Q0Z-yv-Qcl" id="bEj-Ei-ZZx"/>
                         <outlet property="picInfoDescLabel" destination="PXE-3v-Wj7" id="46x-0Y-cHQ"/>
@@ -862,7 +864,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="76" y="854"/>
+            <point key="canvasLocation" x="75.5" y="948.5"/>
         </scene>
     </scenes>
 </document>
