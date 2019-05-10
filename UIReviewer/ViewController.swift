@@ -80,6 +80,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
             resizeAndDisplay(scale: 2)
         }
     }
+    
     @IBAction func divide3(_ sender: NSButton) {
         if (sender.state == .on) {
             divide2Btn.state = .off
@@ -87,6 +88,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
             resizeAndDisplay(scale: 3)
         }
     }
+    
     @IBAction func divide1(_ sender: NSButton) {
         if (sender.state == .on) {
             divide2Btn.state = .off
